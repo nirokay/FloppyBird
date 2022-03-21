@@ -16,7 +16,7 @@ FlöppyBird is yet another open-source Flappy Bird clone (please don't sue me) w
 
 ## _Roadmap:_
 
-(✅ added features, 🔜 planned features, ❓ unsure)
+(🔜 planned features, ❓ unsure)
 
 * 🔜 Unlockable Skins for your bird
 * 🔜 Background and Foreground objects (clouds, grass, small rocks, etc.)
