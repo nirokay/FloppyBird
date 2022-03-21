@@ -21,7 +21,10 @@ config.player = {
 	jump       = 9,
 	gravity    = 0.15,
 	maxSpeed   = 7,
-	startSpeed = 4
+	startSpeed = 4,
+
+	-- Player Coin Gain (Coin/Pipe):
+	coinGain   = 0.5
 }
 
 	-- All about Pipes:
@@ -40,7 +43,7 @@ config.pipe = {
 	-- Screen X-Axis Scroll:
 config.scroll = {
 	speed      = 1.5,
-	increment  = 0.1
+	increment  = 0.02
 }
 
 

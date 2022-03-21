@@ -46,6 +46,10 @@ end
 -- Check if player passed Pipe:
 function Pipe:checkPass()
 	if not self.passed and player.x > self.x + self.w/2 then
+		-- Scroll Speed Increase:
+		game.scroll.current = game.scroll.current + game.scroll.increment
+
+		-- Update Score and Pipe Completion:
 		player:gainScore()
 		self.passed = true
 	end

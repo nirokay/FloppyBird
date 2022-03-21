@@ -1,11 +1,14 @@
-save = {}
+save = {
+	files = {}
+}
 
-function save.init(file, data)
+function save.init(name, file, data)
 	data = data or " "
 	if not love.filesystem.getInfo(file) then
 		debug("warn", "File *" .. file .. "* not found; Creating")
 		love.filesystem.write(file, data)
 	end
+	save.files[name] = file
 	debug("", "File *" .. file .. "* found!")
 end
 

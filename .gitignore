@@ -1,1 +1,2 @@
-.build/builds
+.build/builds/*
+.TODO.txt

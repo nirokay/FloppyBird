@@ -9,3 +9,5 @@ controls = {
 		jump = "space"
 	}
 }
+
+return controls

@@ -1,4 +1,4 @@
 #!/bin/bash
 echo -e "\e[1;33m Building .love \e[0m"
-zip -9 -r $1.love . -x ./.build/**\* ./.git/**\*
+zip -9 -r $1.love . -x ./.build/builds/**\* ./.git/**\*
 mv $1.love ./.build/builds

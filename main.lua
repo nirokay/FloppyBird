@@ -9,11 +9,11 @@ function love.load()
 	easy.deb.isDebug = config.debugEnabled
 
 	-- Save Files:
-	save.init("score.dat", 0)
-	save.init("skins.lua", "skins = {} return skins")
+	save.init("score", "score.dat", 0)
+	save.init("coins", "coins.dat", 0)
+	save.init("skins", "skins.lua", "skins = {} return skins")
 
 	-- Game Objects Declaration:
-
 	--   Ground:
 	ground = Ground(70)
 	--   Pipes:
@@ -22,6 +22,7 @@ function love.load()
 	--   Player:
 	player = Player(width/4, height/2)
 	player.highscore = tonumber(save.load("score.dat"))
+	player.coins     = tonumber(save.load("coins.dat"))
 	--   Gui:
 	gui    = Gui()
 
@@ -51,6 +52,10 @@ function love.load()
 			speed     = config.scroll.speed,
 			increment = config.scroll.increment,
 			current   = config.scroll.speeds
+		},
+		restartCooldown = {
+			current = 0,
+			max = 40
 		}
 	}
 	resetScroll()
@@ -97,8 +102,14 @@ function playerFail()
 	if not hurtplayed then
 		-- State Update:
 		game.active = false
+		game.restartCooldown.current = game.restartCooldown.max
 		player.alive = false
 		ground.doAttract = true
+
+		-- Update Player Coins:
+		local temp = save.load("coins.dat")
+		player.coins = tonumber(temp) + math.floor(player.score * config.player.coinGain)
+		save.save("coins.dat", player.coins)
 
 		-- Animation and Sound:
 		player:jump(0.3)
@@ -154,10 +165,19 @@ function love.draw()
 	player:draw()
 
 	if not game.active then
-		-- Outside Game:
+		-- Button Draw:
 		for i, b in pairs(button) do
 			b:draw()
 		end
+
+		-- Press Space after death to restart:
+		if love.keyboard.isDown(controls.player.jump) then
+			if game.restartCooldown.current < 0 then
+				button.start.fn()
+			end
+			game.restartCooldown.current = game.restartCooldown.max
+		end
+		game.restartCooldown.current = game.restartCooldown.current - 1
 	end
 
 	gui:draw()

@@ -9,6 +9,7 @@ function Player:init(x, y)
 
 	-- Score Setup:
 	self.score = 0
+	self.coins = 0
 	self.highscore = 0
 
 	-- Current Skin and Picture related stuff:
@@ -52,18 +53,34 @@ end
 
 -- Player Controls:
 function Player:controls()
+	-- Keyboard Input:
 	local function keyDown(key, fn)
-		if love.keyboard.isDown(key) then
-			if  self.cooldown.current < 0 then
-				fn()
-			end
-			self.cooldown.current = self.cooldown.max
-		end
+		if love.keyboard.isDown(key) then fn() end
 	end
-	
-	-- Controls:
-	keyDown("space",              function() self:jump() end)           -- ! "controls.player.jump" boolean value error
-	keyDown("r",                  function() resetGame() end)
+	-- Mouse Input:
+	local function mouseDown(key, fn)
+		if love.mouse.isDown(key) then fn() end
+	end
+
+
+	-- CONTROL FUNCTIONS:
+
+	-- Full Jump Function:
+	local function jump()
+		if self.cooldown.current < 0 then
+			self:jump()
+		end
+		self.cooldown.current = self.cooldown.max
+	end
+
+
+	-- ALL CONTROLS:
+	keyDown(controls.player.jump, function()
+		jump()
+	end)
+	mouseDown(controls.mouse.click, function()
+		jump()		
+	end)
 
 	-- Cooldown Trickle Down:
 	self.cooldown.current = self.cooldown.current - 1
@@ -120,13 +137,3 @@ function Player:draw()
 	love.graphics.setColor(1, 1, 1, 1)
 	love.graphics.draw(self.skin, self.x, self.y, -(self.angle-math.pi/2), scale, scale, w/2, h/2)
 end
-
---[[
-	local texture = image.bird
-	local w, h = texture:getWidth(), texture:getWidth()
-	local scale = self.r / w*2
-
-	love.graphics.setColor(1, 1, 1)
-	love.graphics.draw(texture, self.x, self.y, -(self.angle-math.pi/2), scale, scale, w/2, h/2)
-end
-]]
