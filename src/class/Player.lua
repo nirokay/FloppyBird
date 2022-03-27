@@ -14,7 +14,14 @@ function Player:init(x, y)
 
 	-- Current Skin and Picture related stuff:
 	self.angle = math.pi/2
-	self.skin = image.skin.default
+	self.skin = nil
+	local skins = require("data/skins")
+	for i, v in pairs(skins) do
+		if v.id == config.player.defaultSkinID then
+			self.skin = v
+		end
+	end
+	self.frame = self.skin.img[1]
 
 	-- Controls Stuff:
 	self.cooldown = {
@@ -39,6 +46,8 @@ function Player:reset()
 
 	self.alive  = true
 	self.score  = 0
+
+	self.frame = self.skin.img[1]
 end
 
 -- * Score Stuff: ( called on Pipe Passage by Pipe.lua, not here )
@@ -90,6 +99,7 @@ function Player:jump(perc)
 	perc = perc or 1
 	self.ySpeed = config.player.jump * perc
 	love.audio.play(sound.jump)
+	self.frame = self.skin.img[2]
 end
 
 function Player:gravity()
@@ -126,14 +136,18 @@ function Player:update()
 		self.angle = math.pi*2
 	end
 	self.angle = (self.ySpeed/config.player.maxSpeed) + math.pi/2
+
+	if self.cooldown.current + config.player.flopRate <= self.cooldown.max then
+		self.frame = self.skin.img[1]
+	end
 end
 
 function Player:draw()
 	easy.setColour("table", config.colour.bird)
 	love.graphics.circle("fill", self.x, self.y, self.r)
 
-	local w, h = self.skin:getWidth(), self.skin:getWidth()
+	local w, h = self.frame:getWidth(), self.frame:getWidth()
 	local scale = self.r / w*2.5
 	love.graphics.setColor(1, 1, 1, 1)
-	love.graphics.draw(self.skin, self.x, self.y, -(self.angle-math.pi/2), scale, scale, w/2, h/2)
+	love.graphics.draw(self.frame, self.x, self.y, -(self.angle-math.pi/2), scale, scale, w/2, h/2)
 end

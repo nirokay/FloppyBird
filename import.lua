@@ -54,6 +54,8 @@ load("Player")
 load("Pipe")
 load("Ground")
 
+load("Shop")
+load("Shopbutton")
 load("Gui")
 load("Button")
 
@@ -66,6 +68,7 @@ info       = load("info")
 controls   = load("controls")
 font       = load("font")
 config     = load("config")
+files      = load("files")
 
 -- Assets:
 switch("assets")

@@ -27,4 +27,8 @@ function save.save(file, data)
 	love.filesystem.write(file, data)
 end
 
+function save.append(file, data)
+	love.filesystem.append(file, data)
+end
+
 return save

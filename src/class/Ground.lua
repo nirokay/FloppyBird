@@ -38,11 +38,18 @@ function Ground:update()
 end
 
 function Ground:draw()
+	local startY = height - self.h
 	-- Draw Dirt:
 	easy.setColour("table", config.colour.ground.dirt)
-	love.graphics.rectangle("fill", -5, height - self.h, width+10, self.h + 5)
+	love.graphics.rectangle("fill", -5, startY, width+10, self.h + 5)
 
 	-- Draw Grass:
 	easy.setColour("table", config.colour.ground.grass)
-	love.graphics.rectangle("fill", -5, height - self.h, width+10, self.h/4)
+	love.graphics.rectangle("fill", -5, startY, width+10, self.h/3)
+
+	-- Draw Shadow:
+	local squish = 3
+	local val    = (500 / ( 0.05 * (math.abs(startY - player.y) ) + player.r))
+	love.graphics.setColor(0, 0, 0, 0.2)
+	love.graphics.ellipse("fill", player.x, startY + val/squish, val, val/3)
 end

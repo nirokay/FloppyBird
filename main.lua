@@ -1,5 +1,6 @@
 -- SETUP:
 math.randomseed(os.time())
+love.math.setRandomSeed(os.time())
 
 function love.load()
 	-- Variables:
@@ -9,9 +10,9 @@ function love.load()
 	easy.deb.isDebug = config.debugEnabled
 
 	-- Save Files:
-	save.init("score", "score.dat", 0)
-	save.init("coins", "coins.dat", 0)
-	save.init("skins", "skins.lua", "skins = {} return skins")
+	save.init("score", files.score, 0)
+	save.init("coins", files.coins, 0)
+	save.init("skins", files.skins, "default\n")
 
 	-- Game Objects Declaration:
 	--   Ground:
@@ -25,6 +26,7 @@ function love.load()
 	player.coins     = tonumber(save.load("coins.dat"))
 	--   Gui:
 	gui    = Gui()
+	shop   = Shop()
 
 	--   Buttons:
 	local c = {
@@ -32,14 +34,17 @@ function love.load()
 		bg = {160, 50, 50, 1}
 	}
 	button = {
-		start = Button(3*width/5, 3*height/5, 170, 75, "left", "center", "Play", font.bttn, c.fg, c.bg, function()
+		start = Button(5*width/7, 2*height/5, 170, 75, "left", "center", "Play", font.bttn, c.fg, c.bg, function()
 			if button.start.text == "Play"
 				then resetGame()
 				else resetGame(true)
 			end
 			game.active = true
 		end),
-		quit  = Button(3*width/5, 4*height/5, 170, 75, "left", "center", "Quit", font.bttn, c.fg, c.bg, function()
+		shop  = Button(5*width/7, 3*height/5, 170, 75, "left", "center", "Shop", font.bttn, c.fg, c.bg, function()
+			shop.active = not shop.active
+		end),
+		quit  = Button(5*width/7, 4*height/5, 170, 75, "left", "center", "Quit", font.bttn, c.fg, c.bg, function()
 			debug("", "Quitting Game. Bye bye!")
 			love.event.quit()
 		end)
@@ -67,15 +72,20 @@ end
 
 -- FUNCTIONS:
 
--- Dave Data:
+-- Save Data:
 function updateHighscore()
-	save.save("score.dat", player.highscore)
+	save.save(files.score, player.highscore)
+end
+
+function updateCoins()
+	save.save(files.coins, player.coins)
 end
 
 -- Reset Game:
 function resetGame(alsoPipes)
 	-- Reset Objects:
 	player:reset()
+	player.frame = player.skin.img[1]
 	resetScroll()
 	if alsoPipes then
 		regenerateAll()
@@ -102,6 +112,7 @@ function playerFail()
 	if not hurtplayed then
 		-- State Update:
 		game.active = false
+		shop.active = false
 		game.restartCooldown.current = game.restartCooldown.max
 		player.alive = false
 		ground.doAttract = true
@@ -113,6 +124,7 @@ function playerFail()
 
 		-- Animation and Sound:
 		player:jump(0.3)
+		player.frame = player.skin.img[3]
 		love.audio.play(sound.hurt)
 		updateHighscore()
 
@@ -129,6 +141,18 @@ function regenerateAll()
 	end
 end
 
+-- Quick Restart (Press Space to replay when dead)
+function quickRestart()
+	-- Press jump button if dead to quick restart:
+	if love.keyboard.isDown(controls.player.jump) then
+		if game.restartCooldown.current < 0 then
+			button.start.fn()
+		end
+		game.restartCooldown.current = game.restartCooldown.max
+	end
+	game.restartCooldown.current = game.restartCooldown.current - 1
+end
+
 
 
 -- MAIN:
@@ -136,7 +160,7 @@ end
 function love.update(dt)
 	ground:update()
 	if game.active then
-		-- In-Game
+		-- In Game:
 		player:update()
 		for i, p in pairs(pipe) do
 			p:update()
@@ -144,6 +168,14 @@ function love.update(dt)
 
 	else
 		-- Outside Game:
+		if shop.active then
+			-- Shop is active:
+			shop:update()
+		else
+			-- Shop isn't Active:
+			quickRestart()
+		end
+
 		for i, b in pairs(button) do
 			b:update()
 		end
@@ -170,14 +202,10 @@ function love.draw()
 			b:draw()
 		end
 
-		-- Press Space after death to restart:
-		if love.keyboard.isDown(controls.player.jump) then
-			if game.restartCooldown.current < 0 then
-				button.start.fn()
-			end
-			game.restartCooldown.current = game.restartCooldown.max
+		if shop.active then
+			-- Shop Draw:
+			shop:draw()
 		end
-		game.restartCooldown.current = game.restartCooldown.current - 1
 	end
 
 	gui:draw()
