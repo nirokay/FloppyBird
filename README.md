@@ -4,14 +4,14 @@ FlöppyBird is yet another open-source Flappy Bird clone (please don't sue me) w
 
 ---
 
-## __1. Changelog (v0.4.1)__
+## __1. Changelog (v0.5)__
 
-+ space bar after death to quick restart
-+ mouse controls (jump with mouse)
-+ fix build bug (build files now included)
-+ config controls fix
-+ coin gain _(future use: in-game skins etc)_
-+ speed increase with pipe pass
++ added new skin (Pupsbird)
++ added parallax background
++ added sounds
++ improved game visuals
++ several tweaks to values (jump height, gravity, etc)
++ bug fixes
 
 ---
 

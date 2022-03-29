@@ -101,6 +101,15 @@ function easy.setColour(type, r, g, b, a)
 	love.graphics.setColor(r/range, g/range, b/range, a)
 end
 
+-- Sound Playback:
+easy.sound = {}
+function easy.sound.playRandom(tab)
+	love.audio.play(tab[math.random(1, #tab)])
+end
+function easy.sound.play(file)
+	love.audio.play(file)
+end
+
 -- Mouse Hover and Click:
 function easy.mouse.hover(x, y, w, h)
 	local mx, my = love.mouse.getPosition()

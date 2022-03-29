@@ -24,18 +24,23 @@ function love.conf(t)
     t.modules.window   = true
 
 	-- Storage:
-	t.identity = string.lower(info.authors[1])..".floppybird"
+	t.identity        = string.lower(info.authors[1])..".floppybird"
 	t.externalstorage = true
+    t.console = false
 
     -- Permissions:
 	t.accelerometerjoystick = false
-	t.audio.mic = false
-    t.audio.mixwithsystem = true
+	t.audio.mic             = false
+    t.audio.mixwithsystem   = true
 
     -- Window:
-    t.window.title = info.title .. " v" .. info.version
-    t.window.icon = "assets/img/icon.png"
-	t.window.width = 640
-	t.window.height = 780
-    t.window.resizable = false
+    local w, h         = 700, 900
+    t.window.title     = info.title .. " v" .. info.version
+    t.window.icon      = "assets/img/icon.png"
+	t.window.width     = w
+	t.window.height    = h
+
+    t.window.resizable = true
+    t.window.minwidth  = w
+    t.window.minheight = h
 end

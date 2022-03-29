@@ -75,10 +75,43 @@ function Pipe:update()
 end
 
 function Pipe:draw()
-	easy.setColour("table", config.colour.pipe)
+	-- Variables for the top stuff thingy:
+	local w, h = self.w + 2*config.pipe.topPart.width, config.pipe.topPart.height
+	local x, y = self.x - config.pipe.topPart.width, nil
+	-- Colouring:
+	local c     = config.colour.pipe
+	local cOff  = config.pipe.draw.shd_harsh
+	local tOff  = config.pipe.draw.topShade
+	local shade = config.pipe.draw.shade
 
-	-- Draw Bottom:
+	-- DRAW BOTTOM:
+	easy.setColour("table", c)
 	love.graphics.rectangle("fill", self.x, self.gap.bottom, self.w, height)
-	-- Draw Top:
+	-- Shadow:
+	easy.setColour("single", c[1]*cOff, c[2]*cOff, c[3]*cOff, 1)
+	love.graphics.rectangle("fill", self.x + self.w*shade, self.gap.bottom, self.w-shade*self.w, height)
+
+	-- Top part:
+	y = self.gap.bottom - config.pipe.topPart.offset
+	easy.setColour("single", c[1]*tOff, c[2]*tOff, c[3]*tOff, 1)
+	love.graphics.rectangle("fill", x, y, w, h)
+	--	Shadow:
+	easy.setColour("single", c[1]*tOff*cOff, c[2]*tOff*cOff, c[3]*tOff*cOff, 1)
+	love.graphics.rectangle("fill", x + w*shade, y, w-shade*w, h)
+
+
+	-- DRAW TOP:
+	easy.setColour("table", c)
 	love.graphics.rectangle("fill", self.x, self.gap.top, self.w, -height)
+	--Shadow:
+	easy.setColour("single", c[1]*cOff, c[2]*cOff, c[3]*cOff, 1)
+	love.graphics.rectangle("fill", self.x + self.w*shade, self.gap.top, self.w-shade*self.w, -height)
+
+	-- Top part:
+	y = self.gap.top + config.pipe.topPart.offset - h
+	easy.setColour("single", c[1]*tOff, c[2]*tOff, c[3]*tOff, 1)
+	love.graphics.rectangle("fill", x, y, w, h)
+	--	Shadow:
+	easy.setColour("single", c[1]*tOff*cOff, c[2]*tOff*cOff, c[3]*tOff*cOff, 1)
+	love.graphics.rectangle("fill", x + w*shade, y, w-shade*w, h)
 end

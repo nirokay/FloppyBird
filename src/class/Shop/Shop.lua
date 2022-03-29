@@ -17,9 +17,11 @@ function Shop:init()
 	self.buttons = {
 		pageUP   = Button(self.x + indent + size/2, self.y + indent + size/2, size-indent*2, size-indent*2, "center", "center", "<", font.default, c.fg, c.bg, function()
 			self:changePage("-")
+			love.audio.play(sound.ui.page.down)
 		end),
 		pageDOWN = Button(self.x - indent - size/2 + self.w, self.y + indent + size/2, size-indent*2, size-indent*2, "center", "center", ">", font.default, c.fg, c.bg, function()
 			self:changePage("+")
+			love.audio.play(sound.ui.page.up)
 		end)
 	}
 
@@ -84,7 +86,7 @@ function Shop:load()
 		-- Loop through save file unlocks:
 		for k, s in pairs(skins) do
 			-- Loop through every available skin:
-			if u == s.id or s.price == 0 then
+			if u == s.id or s.price <= 0 then
 				table.insert(unlocked, s)
 				debug("", "Unlocked Skin Loaded: " .. s.name)
 			end

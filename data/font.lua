@@ -4,7 +4,7 @@ font = {
 	bttn     = love.graphics.newFont(50),
 	shop = {
 		name = love.graphics.newFont(22),
-		desc = love.graphics.newFont(15)
+		desc = love.graphics.newFont(14)
 	}
 }
 

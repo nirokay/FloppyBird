@@ -50,14 +50,19 @@ save       = load("save")
 
 -- Import Classes:
 switch("src/class")
+load("Gui")
+load("Button")
+
+switch("src/class/Object")
 load("Player")
 load("Pipe")
 load("Ground")
+load("Background")
 
+switch("src/class/Shop")
 load("Shop")
 load("Shopbutton")
-load("Gui")
-load("Button")
+
 
 
 -- DATA:

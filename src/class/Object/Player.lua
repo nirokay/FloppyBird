@@ -53,7 +53,7 @@ end
 -- * Score Stuff: ( called on Pipe Passage by Pipe.lua, not here )
 function Player:gainScore()
 	self.score = self.score + 1
-	love.audio.play(sound.yay)
+	easy.sound.playRandom(sound.player.score)
 
 	if self.score > self.highscore then
 		self.highscore = self.score
@@ -98,7 +98,7 @@ end
 function Player:jump(perc)
 	perc = perc or 1
 	self.ySpeed = config.player.jump * perc
-	love.audio.play(sound.jump)
+	easy.sound.playRandom(sound.player.jump)
 	self.frame = self.skin.img[2]
 end
 

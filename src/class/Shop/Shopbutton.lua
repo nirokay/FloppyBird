@@ -43,21 +43,24 @@ function Shopbutton:buy()
 		
 		player.coins = player.coins - self.skin.price
 		updateCoins()
+		easy.sound.play(sound.ui.buy)
 		self.bought = true
 	end
 end
 
 function Shopbutton:updateButton()
 	if self.bought then
-		self.button.text = "Equip"
+		self.button.text = "\nEquip"
 		self.button.colour.bg = self.c.bg.equip
 		self.button.fn = function()
 			debug("", "Equipping skin: " .. self.skin.name)
 			player.skin = self.skin
+			player.frame = player.skin.img[1]
+			easy.sound.playRandom(sound.ui.equip)
 			self:updateButton()
 		end
 	else
-		self.button.text = "Buy: " .. self.skin.price
+		self.button.text = "\nBuy: " .. self.skin.price
 		self.button.colour.bg = self.c.bg.buy
 		self.button.fn = function()
 			debug("", "Buying skin: " .. self.skin.name)
@@ -67,10 +70,11 @@ function Shopbutton:updateButton()
 	end
 
 	if player.skin.id == self.skin.id then
-		self.button.text = "Equiped"
+		self.button.text = "\nEquiped"
 		self.button.colour.bg = self.c.bg.equiped
 		self.button.fn = function()
 			debug("warn", "Already Equipped skin: " .. self.skin.name)
+			easy.sound.play(sound.ui.select.no)
 			self:updateButton()
 		end
 	end

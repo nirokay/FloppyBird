@@ -17,6 +17,8 @@ function love.load()
 	-- Game Objects Declaration:
 	--   Ground:
 	ground = Ground(70)
+	--   Background:
+	background = Background()
 	--   Pipes:
 	pipe = {}
 	regenerateAll()
@@ -56,7 +58,7 @@ function love.load()
 		scroll = {
 			speed     = config.scroll.speed,
 			increment = config.scroll.increment,
-			current   = config.scroll.speeds
+			current   = config.scroll.speed
 		},
 		restartCooldown = {
 			current = 0,
@@ -85,6 +87,7 @@ end
 function resetGame(alsoPipes)
 	-- Reset Objects:
 	player:reset()
+	background:reset()
 	player.frame = player.skin.img[1]
 	resetScroll()
 	if alsoPipes then
@@ -125,7 +128,7 @@ function playerFail()
 		-- Animation and Sound:
 		player:jump(0.3)
 		player.frame = player.skin.img[3]
-		love.audio.play(sound.hurt)
+		easy.sound.playRandom(sound.player.hurt)
 		updateHighscore()
 
 		-- No-loop Loop thingy:
@@ -158,6 +161,9 @@ end
 -- MAIN:
 
 function love.update(dt)
+	width, height = love.graphics.getDimensions()
+
+	background:update()
 	ground:update()
 	if game.active then
 		-- In Game:
@@ -185,9 +191,7 @@ function love.update(dt)
 end
 
 function love.draw()
-	-- Set BAckground Colour:
-	local c = config.colour.sky
-	love.graphics.setBackgroundColor(c[1]/255, c[2]/255, c[3]/255)
+	background:draw()
 
 	-- Draw Game Objects:
 	for i, p in pairs(pipe) do
