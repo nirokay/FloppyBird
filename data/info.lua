@@ -1,7 +1,7 @@
 info = {}
 
 info.title   = "Flöppy Bird"
-info.version = "0.4.2"
+info.version = "0.5"
 info.authors = {
 	"NiroUwU"
 }
