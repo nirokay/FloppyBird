@@ -7,6 +7,7 @@ image = {}
 
 image.icon = load("icon.png")
 image.coin = load("coin.png")
+image.missing = load("missing.png")
 
 path = "assets/img/background/"
 image.background = {
@@ -27,6 +28,11 @@ image.skin = {
 		idle = load("pupsbirdIDLE.png"),
 		flop = load("pupsbirdFLOP.png"),
 		dead = load("pupsbirdDEAD.png")
+	},
+	air = {
+		idle = load("airIDLE.png"),
+		flop = load("airFLOP.png"),
+		dead = load("airDEAD.png")
 	}
 }
 

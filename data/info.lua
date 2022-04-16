@@ -1,7 +1,7 @@
 info = {}
 
 info.title   = "Flöppy Bird"
-info.version = "0.5"
+info.version = "0.6"
 info.authors = {
 	"NiroUwU"
 }
@@ -10,7 +10,8 @@ info.credits = {
 		"NiroUwU"
 	},
 	art = {
-		"NiroUwU"
+		"NiroUwU",
+		"Kura"
 	},
 	sound = {
 		"NiroUwU",

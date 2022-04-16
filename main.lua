@@ -14,6 +14,12 @@ function love.load()
 	save.init("coins", files.coins, 0)
 	save.init("skins", files.skins, "default\n")
 
+	-- Custom Skin Files:
+	love.filesystem.createDirectory("customskins")
+	love.filesystem.write("customskins/readme.txt", files.customskins.readme)
+	save.init("readme", "customskins/readme.txt", files.customskins.readme)
+	save.loadCustomSkins()
+
 	-- Game Objects Declaration:
 	--   Ground:
 	ground = Ground(70)
@@ -182,6 +188,7 @@ function love.update(dt)
 			quickRestart()
 		end
 
+		-- Draw Buttons:
 		for i, b in pairs(button) do
 			b:update()
 		end

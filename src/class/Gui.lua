@@ -22,7 +22,12 @@ function coins(x, y, size)
 	local w, h = img:getWidth(), img:getHeight()
 	love.graphics.draw(img, x, y, 0, size/w, size/h)
 
-	local txt = player.coins
+	local txt = ""
+	if not game.active then
+		txt = math.floor(player.coins)
+	else
+		txt = math.floor(player.coins + player.score * config.player.coinGain)
+	end
 	w = 100
 	love.graphics.printf(txt, x-w, y, w, "right")
 end

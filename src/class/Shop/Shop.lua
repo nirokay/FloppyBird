@@ -82,11 +82,9 @@ function Shop:load()
 
 	-- Unlock Skins from save file:
 	local unlocked = {}
-	for i, u in pairs(tabl) do
-		-- Loop through save file unlocks:
-		for k, s in pairs(skins) do
-			-- Loop through every available skin:
-			if u == s.id or s.price <= 0 then
+	for i, u in pairs(tabl) do -- Loop through save file unlocks:
+		for k, s in pairs(skins) do -- Loop through every available skin:
+			if u == s.id or tonumber(s.price) <= 0 then
 				table.insert(unlocked, s)
 				debug("", "Unlocked Skin Loaded: " .. s.name)
 			end

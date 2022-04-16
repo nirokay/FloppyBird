@@ -19,6 +19,10 @@ fi
 # Build .exe
 ./.build/make-exe.sh $project
 
+# Build .AppImage
+./.build/make-appimg.sh $project
+
 # End
 echo -e "\e[1;33m Finished Building Project! \e[0m"
+chmod +x ./.build/builds/*
 exit 0

@@ -80,6 +80,9 @@ switch("assets")
 sound      = load("sounds")
 image      = load("images")
 
+switch("data")
+skins      = load("skins")
+
 
 -- End of Import:
 print(clr.fg.YELLOW .. "\n" .. "☑️  Loaded Modules: " .. modCount .. clr.reset .. "\n")

@@ -4,7 +4,7 @@ doZip=true
 path="./.build"
 
 # Windows Folder
-winDir=$1-win
+winDir="$1"-win
 winPATH=$path"/builds/$winDir"
 mkdir "$winPATH"
 
