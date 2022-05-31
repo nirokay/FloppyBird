@@ -90,6 +90,14 @@ skins = {
 		-- Art Credit: Kura (https://www.instagram.com/kur.a.rt/)
 	),
 	init(
+		"Plumber",
+		"plumber",
+		"A plumber you recognise from somewhere...",
+		80,
+		{image.skin.plumber.idle, image.skin.plumber.flop, image.skin.plumber.dead}
+		-- Art Credit: Kura (https://www.instagram.com/kur.a.rt/)
+	),
+	init(
 		"Bop-Cat",
 		"bopbop",
 		"The sight of this cat is hypnotising.",

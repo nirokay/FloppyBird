@@ -33,6 +33,11 @@ image.skin = {
 		idle = load("airIDLE.png"),
 		flop = load("airFLOP.png"),
 		dead = load("airDEAD.png")
+	},
+	plumber = {
+		idle = load("plumberIDLE.png"),
+		flop = load("plumberFLOP.png"),
+		dead = load("plumberDEAD.png")		
 	}
 }
 

@@ -4,14 +4,11 @@ FlöppyBird is yet another open-source Flappy Bird clone (please don't sue me) w
 
 ---
 
-## __1. Changelog (v0.5)__
+## __1. Changelog (v0.6)__
 
-+ added new skin (Pupsbird)
-+ added parallax background
-+ added sounds
-+ improved game visuals
-+ several tweaks to values (jump height, gravity, etc)
-+ bug fixes
++ updated builder (added .AppImage format)
++ coin counter dynamic updates
++ custom skin support (read readme in love directory about usage)
 
 ---
 
@@ -38,7 +35,7 @@ Building from source is easy! Execute the following command:
 
 `./build.sh BUILD_NAME`
 
-The final build will be located in `/.build/builds/`. The build script builds a native Windows Executable and a .love file, which can be run with the Löve2d Game Engine.
+The final build will be located in `/.build/builds/`. The build script builds a native Windows Executable, AppImage and a .love file, which can be run with the Löve2d Game Engine.
 
 ### 3.3 Installing Löve2d Game Engine
 
